@@ -1,9 +1,11 @@
 const express = require("express");
+const Joi = require("joi");
 const app = express();
 
 const veges = require("./data");
 
-// console.log(veges[0]["_id"]);
+app.use(express.json());
+
 app.get("/", (req, res) => {
     res.send("Hello");
 })
@@ -19,7 +21,30 @@ app.get("/api/veges/:id/", (req, res) => {
 });
 
 app.post("/api/veges", (req, res) => {
+    const schema = {
+        "品名": Joi.string().required(),
+        "市場": Joi.string().required(),
+        "平均(元 / 公斤)": Joi.string().required(),
+        "種類": Joi.string().required(),
+    }
+    const input = Joi.validate(req.body, schema);
     
+    if (input.error) {
+        const errMsg = input.error.details[0].message;
+        res.status(400).send(errMsg);
+        return;
+    }
+
+    const vege = {
+        "品名": req.body["品名"],
+        "市場": req.body["市場"],
+        "平均(元 / 公斤)": req.body["平均(元 / 公斤)"],
+        "種類": req.body["種類"],
+        日期: new Date(),
+        _id: veges.length + 1,
+    };
+    veges.push(vege);
+    res.send(vege);
 })
 
 const port = process.env.PORT || 3000;

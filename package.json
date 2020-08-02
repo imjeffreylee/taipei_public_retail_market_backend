@@ -20,6 +20,7 @@
   "homepage": "https://github.com/imjeffreylee/taipei_public_retail_market_backend#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "joi": "^13.1.0",
     "nodemon": "^2.0.4"
   }
 }
