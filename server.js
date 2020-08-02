@@ -7,7 +7,7 @@ const veges = require("./data");
 app.use(express.json());
 
 app.get("/", (req, res) => {
-    res.send("Hello");
+    res.send("臺北市公有零售市場行情");
 })
 
 app.get("/api/veges", (req, res) => {
@@ -44,6 +44,28 @@ app.post("/api/veges", (req, res) => {
         _id: veges.length + 1,
     };
     veges.push(vege);
+    res.send(vege);
+})
+
+app.put("/api/veges/:id", (req, res) => {
+    let vege = veges.find((vege) => parseInt(req.params.id) === vege._id);
+    if (!vege) res.status(404).send("沒有你要找的菜ㄟ歹勢");
+
+    const schema = {
+        "品名": Joi.string(),
+        "市場": Joi.string(),
+        "平均(元 / 公斤)": Joi.string(),
+        "種類": Joi.string(),
+    }
+    const input = Joi.validate(req.body, schema);
+    
+    if (input.error) {
+        const errMsg = input.error.details[0].message;
+        res.status(400).send(errMsg);
+        return;
+    }
+
+    vege = {...vege, ...req.body};
     res.send(vege);
 })
 
