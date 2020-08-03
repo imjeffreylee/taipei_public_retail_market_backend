@@ -22,6 +22,10 @@
     "express": "^4.17.1",
     "joi": "^13.1.0",
     "mongoose": "^5.9.27",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "validator": "^13.1.1"
+  },
+  "devDependencies": {
+    "faker": "^4.1.0"
   }
 }
