@@ -1,7 +1,14 @@
+const mongoose = require("mongoose");
 const express = require("express");
 const Joi = require("joi");
-const app = express();
+
 const veges = require("./data");
+const app = express();
+const db = require("./config/keys").mongoURI;
+mongoose
+    .connect(db, { useNewUrlParser: true })
+    .then(() => console.log("Connected to MongoDB successfully"))
+    .catch((err) => console.log(err));
 
 // middleware
 app.use(express.json());
