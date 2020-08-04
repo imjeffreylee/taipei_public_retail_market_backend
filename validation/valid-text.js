@@ -1,5 +1,6 @@
 const validText = str => {
-    return typeof str === "string" && str.trim().length > 0;
+    str = str.trim();
+    return typeof str === "string" && str.length > 0;
 }
 
 module.exports = validText;
