@@ -28,36 +28,32 @@ router.post("/", (req, res) => {
         品名: req.body.品名,
         市場: req.body.市場,
         "平均(元 / 公斤)": req.body["平均(元 / 公斤)"],
-        種類: req.body.種類
+        種類: req.body.種類,
+        日期: req.body.日期,
     });
     newVege.save()
-        .then(vege => res.send(vege));
+        .then(vege => res.json(vege));
 });
 
 // update an existing vege
 router.put("/:id", (req, res) => {
-    Vege.findById(req.params.id)
-        .catch(() => res.status(400).send("沒有你要找的菜ㄟ歹勢"));
-
     const { errors, isValid } = validateVegeInput(req.body);
     if (!isValid) return res.status(400).json(errors);
 
     Vege.findByIdAndUpdate(req.params.id, req.body)
         .then(() => {
-            Vege.findById(req.params.id)
-                .then((vege) => {
-                    res.json(vege);
-                })
+            Vege.findById(req.params.id).then((vege) => {
+                res.json(vege);
+            });
         })
+        .catch(() => res.status(400).send("沒有你要找的菜ㄟ歹勢"));
 });
 
 // remove a vege from the list
 router.delete("/:id", (req, res) => {
-    Vege.findById(req.params.id)
-        .catch(() => res.status(400).send("沒有你要找的菜ㄟ歹勢"));
-
     Vege.findByIdAndDelete(req.params.id)
-        .then((vege) => res.json(vege));
+        .then((vege) => res.json(vege))
+        .catch(() => res.status(400).send("沒有你要找的菜ㄟ歹勢"));
 });
 
 module.exports = router;

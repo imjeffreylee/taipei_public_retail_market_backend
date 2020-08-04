@@ -19,13 +19,15 @@
   },
   "homepage": "https://github.com/imjeffreylee/taipei_public_retail_market_backend#readme",
   "dependencies": {
+    "axios": "^0.19.2",
     "express": "^4.17.1",
     "joi": "^13.1.0",
     "mongoose": "^5.9.27",
-    "nodemon": "^2.0.4",
+    "request": "^2.88.2",
     "validator": "^13.1.1"
   },
   "devDependencies": {
-    "faker": "^4.1.0"
+    "faker": "^4.1.0",
+    "nodemon": "^2.0.4"
   }
 }
