@@ -3,8 +3,8 @@ const express = require("express");
 const db = require("./config/keys").mongoURI;
 const app = express();
 const vegesRouter = require("./routes/api/veges");
-const request = require("request");
 const Vege = require("./models/Vege");
+const request = require("request");
 const URL = "https://data.taipei/api/v1/dataset/f4f80730-df59-44f9-bfb8-32c136b1ae68?scope=resourceAquire";
 
 mongoose
@@ -18,8 +18,7 @@ app.use(express.json());
 // routes
 app.use("/api/veges", vegesRouter);
 
-// fetch data with HTTP requests from API
-app.get("/", (req, res) => {
+app.get("/refresh", (req, res) => {
     request(URL + "&limit=20", { json: true }, (err, resp, body) => {
         if (err) return console.log(err);
         let data = body.result.results;
@@ -41,9 +40,8 @@ app.get("/", (req, res) => {
                 .then((vege) => res.send(vege))
                 .catch((err) => res.status(400).json(err));
         }
-    });
-});
-
+    })
+})
 // listener
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Listening on port ${port}`))
