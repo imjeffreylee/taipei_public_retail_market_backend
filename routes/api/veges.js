@@ -56,4 +56,10 @@ router.delete("/:id", (req, res) => {
         .catch(() => res.status(400).send("沒有你要找的菜ㄟ歹勢"));
 });
 
+//remove all
+router.delete("/", (req, res) => {
+    Vege.deleteMany()
+        .then(() => res.send("All documents deleted"));
+});
+
 module.exports = router;
