@@ -59,7 +59,7 @@ router.delete("/:id", (req, res) => {
 //remove all
 router.delete("/", (req, res) => {
     Vege.deleteMany()
-        .then(() => res.send("All documents deleted"));
+        .then(() => res.send("All documents removed"));
 });
 
 module.exports = router;

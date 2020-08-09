@@ -45,7 +45,7 @@ const fetchData = () => {
 
 fetchData();
 
-// setInterval(fetchData, 1000 * 60 * 60);
+setInterval(fetchData, 1000 * 60 * 60);
 
 // listener
 const port = process.env.PORT || 5000;
